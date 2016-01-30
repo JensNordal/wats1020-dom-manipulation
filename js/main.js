@@ -1,6 +1,5 @@
 //////////////////////////////////////////////////
-// WATS1020 Dom Manipulation
-// Custom script goes here.
+// WATS1020 Dom Manipulation Assignment
 //////////////////////////////////////////////////
 
 $( document ).ready(function() {
@@ -8,40 +7,79 @@ $( document ).ready(function() {
         firstName: 'Jane',
         lastName: 'Doe'
     };
+   
+    
+    
+    
+    //===========================
+    // Begin login form script
+    //===========================
+    
+    // Listen for clicks on "Login" button. On click hide login form, show Welcome message with  user name and "Logout" button
+    
+    $('#login-button').on("click", function(){
+        $('#login-form').hide(); 
+		$('div.user-info').show(); 
+		$('.user-fullname').html(userInfo.firstName + " " + userInfo.lastName); 
+    });
+    
+    // Listen for clicks on "Logout" button. On click hide "Logout" button and show login form
+    
+    $('#logout-button').on("click", function(){
+        $('div.user-info').hide();
+        $('#login-form').show();
+    });
+    
+    
+    
+    
+    //================================================
+    // Begin script to display and hide details text
+    //================================================
+    
+    // Listen for clicks on all "View Details" and "Learn More" buttons
+    // Hide or display details text and alter button text accordingly
+    
+    $('.view-details').on('click', function(event){
+        console.log(event);
+        var targetElement = event.target;
+        var container = targetElement.parentElement.parentElement;
+        $(container).find('.details').each(function(index, el) {
+            if ($(el).is(':visible')){
+            $(el).fadeOut();
+            targetElement.innerText = "View Details";    
+            } else {
+                $(el).fadeIn();
+                targetElement.innerText = "Hide Details";
+            }
+        });
+    });
+   
+    
+    
+    
+    //==============================
+    // Begin vote counting script
+    //==============================
+    
+    // Listen for clicks on 'vote' class buttons, increment counter and update progress bar
+    
     var voteCounts = {
-        great: 0,
-        greatest: 0,
+        great: 10,
+        greatest: 30,
         total: 0
     };
-    // Place all your Javascript code inside this "document ready" function so
-    // it does not run until the DOM is ready for Javascript manipulation.
-
-    // TODO: Create a function to listen for clicks on the "login" button.
-    //      1. When a user clicks the "login" button, hide the login
-    //          form elements on the page.
-    //      2. Fill the user's first and last name into `div.user-info`.
-    //      (NOTE: You do not have to perform any validation on the data as
-    //          a base requirement.)
-
-
-    // TODO: Create a function to listen for clicks on all the "View Details"
-    // buttons so that when a user clicks a "View Details" button they see
-    // the content contained in the elements with the class "details" in the
-    // proper part of the screen.
-    //      1. When user clicks a "view details" button, find the parent of that element.
-    //      2. Within that parent, find all the elements that have the class `details`.
-    //      3. Toggle visibility of all the elements within that parent with the class `details`.
-    //      4. Change the text of the "view details" button to read "hide details" so the user
-    //          understands they can hide the text again.
-
-    // TODO: Create a function that listens for clicks on the voting buttons and
-    // looks at the `data-vote` attribute on each button to see what was voted for,
-    // then determines the updated vote breakdown to adjust the progress bars.
-    //      1. Set up an event listener on the buttons with the `vote` class.
-    //      2. When a button is clicked, look at the `data-vote` attribute to determine
-    //          what the user is voting for ("great" or "greatest").
-    //      3. Increment the counter for whichever vote talley is affected.
-    //      4. Determine the respective percentages (out of 100) for each progress bar.
-    //      5. Modify the `width` attribute on each progress bar to set the updated percentage.
-
+    
+    
+	$("#voteGreat").on('click', function(event) {
+		voteCounts.great++;
+		var currentWidth = $(".great-progress").width(voteCounts.great + '%');
+	});
+	
+	
+	$("#voteGreatest").on('click', function(event) {
+		voteCounts.greatest++;
+		var currentWidth = $(".greatest-progress").width(voteCounts.greatest + '%');
+	});  
+    
 });
