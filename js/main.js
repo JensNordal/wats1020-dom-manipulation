@@ -18,16 +18,16 @@ $( document ).ready(function() {
     // Listen for clicks on "Login" button. On click hide login form, show Welcome message with  user name and "Logout" button
     
     $('#login-button').on("click", function(){
-        $('#login-form').hide(); 
-		$('div.user-info').show(); 
+        $('#login-form').fadeOut(300); 
+		$('div.user-info').delay(300).fadeIn(300); 
 		$('.user-fullname').html(userInfo.firstName + " " + userInfo.lastName); 
     });
     
     // Listen for clicks on "Logout" button. On click hide "Logout" button and show login form
     
     $('#logout-button').on("click", function(){
-        $('div.user-info').hide();
-        $('#login-form').show();
+        $('div.user-info').fadeOut(300);
+        $('#login-form').delay(300).fadeIn(300);
     });
     
     
